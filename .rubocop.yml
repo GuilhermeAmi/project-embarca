@@ -1,0 +1,13 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7
+  SuggestExtensions: true
+
+Rails:
+  Enabled: true
+
+RSpec:
+  Enabled: true

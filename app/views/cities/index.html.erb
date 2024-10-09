@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cidades do Brasil</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <h1>Cidades do Brasil</h1>
+    <form id="searchForm">
+        <label for="state">Estado:</label>
+        <select id="state">
+            <option value="">Selecione</option>
+            <option value="1">Paraná</option>
+            <option value="2">Santa Catarina</option>
+            <option value="3">Rio Grande do Sul</option>
+        </select>
+
+        <label for="name">Nome:</label>
+        <input type="text" id="name" placeholder="Nome da Cidade">
+        
+        <button type="submit">Buscar</button>
+    </form>
+
+    <ul id="citiesList"></ul>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const state = document.getElementById('state').value;
+            const name = document.getElementById('name').value;
+
+            fetch(`/cities?state=${state}&name=${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    const citiesList = document.getElementById('citiesList');
+                    citiesList.innerHTML = '';
+                    data.forEach(city => {
+                        const li = document.createElement('li');
+                        li.textContent = city.name;
+                        citiesList.appendChild(li);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

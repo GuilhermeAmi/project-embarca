@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: guilhermeami
+  password: guilhermeami
+  host: localhost 
+
+development:
+  <<: *default
+  database: project-embarca_development
+
+test:
+  <<: *default
+  database: project-embarca_test
+
+production:
+  <<: *default
+  database: project-embarca_production
+  username: project-embarca_user
+  password: <%= ENV['PROJECT-EMBARCA_DATABASE_PASSWORD'] %>
+  port: 5432
